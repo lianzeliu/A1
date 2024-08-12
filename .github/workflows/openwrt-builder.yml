@@ -37,6 +37,13 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+        # 清理不必要的文件和目录以增加可用空间
+        sudo rm -rf /var/lib/apt/lists/*
+        sudo rm -rf /tmp/*
+        sudo rm -rf /var/tmp/*
+        sudo rm -rf /usr/share/man/*
+        sudo rm -rf /usr/share/doc/*
+        sudo rm -rf /usr/share/info/*
 
     - name: Clone source code
       working-directory: /workdir
@@ -65,7 +72,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
     - name: Download package
       id: package
       run: |
